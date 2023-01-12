@@ -4,7 +4,7 @@ export default function BallContainer({ balls, handleClick }) {
 
 
     function makeBall(ballNumber) {
-        const path = "/img/" + (ballNumber + 1) + ".png"
+        const path = "img/" + (ballNumber + 1) + ".png"
         return (
             <div className="item" key={ballNumber} onClick={() => handleClick(ballNumber)}>
                 <img src={path} width="100" height="100" />
