@@ -30,3 +30,78 @@ code {
   text-align: center;
 
 }
+
+.innings {
+  border-radius: 4px;
+  color: #eee;
+  min-height: 50px;
+  min-width: 50px;
+  padding: 12px;
+  width: 300px;
+}
+
+.player {
+  border-radius: 4px;
+  color: #eee;
+  min-height: 200px;
+  min-width: 575px;
+  padding: 12px;
+  width: 300px;
+}
+
+.deadBalls {
+  border-radius: 4px;
+  color: #eee;
+  min-height: 200px;
+  min-width: 575px;
+  padding: 12px;
+  width: 300px;
+}
+
+.rackBalls {
+  border-radius: 4px;
+  color: #eee;
+  min-height: 200px;
+  min-width: 575px;
+  padding: 12px;
+  width: 300px;
+}
+
+.background {
+  background-color: #2d2d30;
+  border-radius: 4px;
+  color: #eee;
+  min-height: 1500px;
+  min-width: 1500px;
+  padding: 12px;
+  width: 300px;
+  font-size: 30px;
+}
+
+.counterButton {
+  width: 50px;
+  height: 50px;
+  background-color: #8f8f8f;
+  font-size: 20px;
+}
+
+.player1Button {
+  width: 200px;
+  height: 60px;
+  background-color: #214175;
+  font-size: 20px;
+}
+
+.player2Button {
+  width: 200px;
+  height: 60px;
+  background-color: #b7ae06;
+  font-size: 20px;
+}
+
+.playerButton3 {
+  width: 200px;
+  height: 60px;
+  background-color: #acaca7;
+  font-size: 20px;
+}

@@ -9,8 +9,6 @@ function App() {
     balls: new Set(),
     score: 0,
   })
-
-
   const [player2State, setPlayer2State] = useState({
     balls: new Set(),
     score: 0,
@@ -21,13 +19,9 @@ function App() {
   })
   const [selectedPlayer, setSelectedPlayer] = useState(0)
 
-
-
   function changeCounter(num) {
     setInnings(innings + num)
   }
-
-
 
   function moveBall(ballNumber, currentSet, destinationSet) {
     const tempCurrentSet = new Set(currentSet)
@@ -53,41 +47,19 @@ function App() {
 
   }
 
+
+
   return <>
-    <div style={{
-      backgroundColor: '#2d2d30',
-      borderRadius: 4,
-      color: '#eee',
-      minHeight: 1500,
-      minWidth: 1500,
-      padding: 12,
-      width: 300,
-      fontSize: 30,
-    }}>
+    <div className="background">
 
-      <div style={{
-        borderRadius: 4,
-        color: '#eee',
-        minHeight: 50,
-        minWidth: 575,
-        padding: 12,
-        width: 300,
-      }}>
+      <div className="innings">
         Innings
-        <button style={{ width: 75, height: 75, background: '#8f8f8f', fontSize: 20 }} onClick={() => changeCounter(-1)}>-</button>
+        <button className="counterButton" onClick={() => changeCounter(-1)}>-</button>
         {innings}
-        <button style={{ width: 75, height: 75, background: '#8f8f8f', fontSize: 20 }} onClick={() => changeCounter(1)}>+</button>
+        <button className="counterButton" onClick={() => changeCounter(1)}>+</button>
       </div>
-      <div style={{
-        borderRadius: 4,
-        color: '#eee',
-        minHeight: 200,
-        minWidth: 575,
-        padding: 12,
-        width: 300,
-
-      }}>
-        <button style={{ width: 200, height: 60, background: '#9e821b', fontSize: 20 }} onClick={() => { setSelectedPlayer(0); changeCounter(1) }}>Player 1</button>
+      <div className="player">
+        <button className="player1Button" onClick={() => { setSelectedPlayer(0); changeCounter(1) }}>Player 1</button>
         {"   "}
         {player1State.score}
 
@@ -104,15 +76,8 @@ function App() {
       </div>
 
 
-      <div style={{
-        borderRadius: 4,
-        color: '#eee',
-        minHeight: 200,
-        minWidth: 575,
-        padding: 12,
-        width: 300,
-      }}>
-        <button style={{ width: 200, height: 60, background: '#214175', fontSize: 20 }} onClick={() => setSelectedPlayer(1)}>Player 2</button>
+      <div className="player">
+        <button className="player2Button" onClick={() => setSelectedPlayer(1)}>Player 2</button>
         {"   "}
         {player2State.score}
 
@@ -127,15 +92,9 @@ function App() {
         }}
         />
       </div>
-      <div style={{
-        borderRadius: 4,
-        color: '#eee',
-        minHeight: 200,
-        minWidth: 575,
-        padding: 12,
-        width: 300,
-      }}>
-        <button style={{ width: 200, height: 60, background: '#8f8f8f', fontSize: 20 }} onClick={() => setSelectedPlayer(3)}>Dead Balls</button>
+
+      <div className="deadBalls">
+        <button className="playerButton3" onClick={() => setSelectedPlayer(3)}>Dead Balls</button>
         {"   "}
         {deadBallState.score}
 
@@ -152,14 +111,7 @@ function App() {
       </div>
 
 
-      <div style={{
-        borderRadius: 4,
-        color: '#eee',
-        minHeight: 200,
-        minWidth: 600,
-        padding: 0,
-        width: 300,
-      }}>
+      <div className="rackBalls">
         Balls on Table
         <BallImageTable balls={rackBalls} handleClick={(ballNumber) => {
           let point = 1

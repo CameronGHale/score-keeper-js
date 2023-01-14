@@ -3,7 +3,7 @@ export default class Player {
         this.name = name;
         this.isRack = isRack;
         this.score = 0;
-        this.balls;
+        this.balls = new Set();
         this.resetBalls();
 
     }
