@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
-import BallContainer from "./BallContainer";
+import BallImageTable from "./BallImageTable";
+import player from "./player";
 
 function App() {
   const [rackBalls, setRackBalls] = useState(new Set([...Array(9).keys()]))
@@ -8,6 +9,8 @@ function App() {
     balls: new Set(),
     score: 0,
   })
+
+
   const [player2State, setPlayer2State] = useState({
     balls: new Set(),
     score: 0,
@@ -18,9 +21,13 @@ function App() {
   })
   const [selectedPlayer, setSelectedPlayer] = useState(0)
 
+
+
   function changeCounter(num) {
     setInnings(innings + num)
   }
+
+
 
   function moveBall(ballNumber, currentSet, destinationSet) {
     const tempCurrentSet = new Set(currentSet)
@@ -59,7 +66,6 @@ function App() {
     }}>
 
       <div style={{
-        //backgroundColor: '#8d98ba',
         borderRadius: 4,
         color: '#eee',
         minHeight: 50,
@@ -73,7 +79,6 @@ function App() {
         <button style={{ width: 75, height: 75, background: '#8f8f8f', fontSize: 20 }} onClick={() => changeCounter(1)}>+</button>
       </div>
       <div style={{
-        //backgroundColor: '#8d98ba',
         borderRadius: 4,
         color: '#eee',
         minHeight: 200,
@@ -86,7 +91,7 @@ function App() {
         {"   "}
         {player1State.score}
 
-        <BallContainer balls={player1State.balls} handleClick={(ballNumber) => {
+        <BallImageTable balls={player1State.balls} handleClick={(ballNumber) => {
           let point = 1
           if (ballNumber === 8) {
             point = 2
@@ -100,7 +105,6 @@ function App() {
 
 
       <div style={{
-        //backgroundColor: '#c98b8b',
         borderRadius: 4,
         color: '#eee',
         minHeight: 200,
@@ -112,7 +116,7 @@ function App() {
         {"   "}
         {player2State.score}
 
-        <BallContainer balls={player2State.balls} handleClick={(ballNumber) => {
+        <BallImageTable balls={player2State.balls} handleClick={(ballNumber) => {
           let point = 1
           if (ballNumber === 8) {
             point = 2
@@ -124,7 +128,6 @@ function App() {
         />
       </div>
       <div style={{
-        //backgroundColor: '#363636',
         borderRadius: 4,
         color: '#eee',
         minHeight: 200,
@@ -136,7 +139,7 @@ function App() {
         {"   "}
         {deadBallState.score}
 
-        <BallContainer balls={deadBallState.balls} handleClick={(ballNumber) => {
+        <BallImageTable balls={deadBallState.balls} handleClick={(ballNumber) => {
           let point = 1
           if (ballNumber === 8) {
             point = 2
@@ -150,7 +153,6 @@ function App() {
 
 
       <div style={{
-        //backgroundColor: '#20630e',
         borderRadius: 4,
         color: '#eee',
         minHeight: 200,
@@ -158,11 +160,8 @@ function App() {
         padding: 0,
         width: 300,
       }}>
-
-
-
         Balls on Table
-        <BallContainer balls={rackBalls} handleClick={(ballNumber) => {
+        <BallImageTable balls={rackBalls} handleClick={(ballNumber) => {
           let point = 1
           if (ballNumber === 8) {
             point = 2
