@@ -7,19 +7,40 @@ function App() {
   const [player1State, setPlayer1State] = useState({
     balls: new Set(),
     score: 0,
-    assignment: 0,
+    id: 0,
   })
   const [player2State, setPlayer2State] = useState({
     balls: new Set(),
     score: 0,
-    assignment: 1,
+    id: 1,
   })
   const [deadBallState, setDeadBallState] = useState({
     balls: new Set(),
     score: 0,
-    assignment: 2,
+    id: 2,
   })
   const [selectedPlayer, setSelectedPlayer] = useState(0)
+  const [playerArray, setPlayerArray] = useState(initAllPlayers(3))
+
+  function resetAllPlayers() {
+    setPlayerArray(playerArray.map((player) => ({ ...player, balls: new Set() })))
+  }
+
+  function createPlayer(number) {
+    return {
+      balls: new Set(),
+      score: 0,
+      id: number,
+    }
+  }
+
+  function initAllPlayers(numberOfPlayers) {
+    let tempArray = []
+    for (let i = 0; i <= numberOfPlayers; i++) {
+      tempArray.push(createPlayer(i))
+    }
+    return tempArray
+  }
 
   function changeCounter(num) {
     setInnings(innings + num)
@@ -37,13 +58,11 @@ function App() {
     const fullRack = new Set([...Array(9).keys()])
     const emptyRack = new Set()
     setInnings(0)
-    setPlayer1State({ balls: emptyRack, score: player1State.score, assignment: player1State.assignment })
-    setPlayer2State({ balls: emptyRack, score: player2State.score, assignment: player2State.assignment })
-    setDeadBallState({ balls: emptyRack, score: deadBallState.score, assignment: deadBallState.assignment })
+    setPlayer1State({ balls: emptyRack, score: player1State.score, id: player1State.id })
+    setPlayer2State({ balls: emptyRack, score: player2State.score, id: player2State.id })
+    setDeadBallState({ balls: emptyRack, score: deadBallState.score, id: deadBallState.id })
     setRackBalls(fullRack)
   }
-
-
 
   function sortRack(unsortedRack) {
     const tempRack = Array.from(unsortedRack).sort();
@@ -62,7 +81,7 @@ function App() {
   function returnBallToRack([playerState, setPlayerState], ballNumber) {
     let point = calulateBallPoints(ballNumber)
     const [newPlayerBalls, newRackBalls] = moveBall(ballNumber, playerState.balls, rackBalls);
-    setPlayerState({ balls: newPlayerBalls, score: playerState.score - point, assignment: playerState.assignment });
+    setPlayerState({ balls: newPlayerBalls, score: playerState.score - point, id: playerState.id });
     sortRack(newRackBalls);
   }
 
@@ -81,9 +100,10 @@ function App() {
       </div>
     </>
   }
+
   function setSelectedPlayerThenHandleInnings(playerState) {
-    setSelectedPlayer(playerState.assignment);
-    if (playerState.assignment === 0) { changeCounter(1) }
+    setSelectedPlayer(playerState.id);
+    if (playerState.id === 0) { changeCounter(1) }
   }
 
   return <>
@@ -107,7 +127,7 @@ function App() {
           const [selectedState, setSelectedState] = selectedPlayer === 0 ? [player1State, setPlayer1State] : (selectedPlayer === 1 ? [player2State, setPlayer2State] : [deadBallState, setDeadBallState])
           const [newRackBalls, newSelectedBalls] = moveBall(ballNumber, rackBalls, selectedState.balls);
           sortRack(newRackBalls);
-          setSelectedState({ balls: newSelectedBalls, score: selectedState.score + point, assignment: selectedPlayer });
+          setSelectedState({ balls: newSelectedBalls, score: selectedState.score + point, id: selectedPlayer });
         }}
         />
       </div>
