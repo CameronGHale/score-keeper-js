@@ -4,30 +4,41 @@ import BallImageTable from "./BallImageTable";
 function App() {
   const [rackBalls, setRackBalls] = useState(new Set([...Array(9).keys()]))
   const [innings, setInnings] = useState(0)
-  const [player1State, setPlayer1State] = useState({
-    balls: new Set(),
-    score: 0,
-    id: 0,
-  })
-  const [player2State, setPlayer2State] = useState({
-    balls: new Set(),
-    score: 0,
-    id: 1,
-  })
-  const [deadBallState, setDeadBallState] = useState({
-    balls: new Set(),
-    score: 0,
-    id: 2,
-  })
   const [selectedPlayer, setSelectedPlayer] = useState(0)
   const [playerArray, setPlayerArray] = useState(initAllPlayers(3))
 
-  function resetAllPlayers() {
+  function nextRack() {
+    setRackBalls(new Set([...Array(9).keys()]))
     setPlayerArray(playerArray.map((player) => ({ ...player, balls: new Set() })))
+    setInnings(0)
+  }
+  function moveBallToPlayer(id, ballNumber) {
+    let point = calulateBallPoints(ballNumber)
+    for (let i = 0; i < playerArray.length; i++) {
+
+      if (id === playerArray[i].id) {
+        let player = playerArray[i]
+        const [newRackBalls, newSelectedBalls] = moveBall(ballNumber, rackBalls, player.balls);
+        sortRack(newRackBalls);
+        playerArray[i] = ({ balls: newSelectedBalls, score: player.score + point, id: player.id, name: player.name });
+      }
+    }
   }
 
-  function createPlayer(number) {
+  function returnBallToRack(player, ballNumber) {
+    let point = calulateBallPoints(ballNumber)
+    for (let i = 0; i < playerArray.length; i++) {
+      if (player.id === playerArray[i].id) {
+        const [newPlayerBalls, newRackBalls] = moveBall(ballNumber, player.balls, rackBalls);
+        playerArray[i] = ({ balls: newPlayerBalls, score: player.score - point, id: player.id, name: player.name });
+        sortRack(newRackBalls);
+      }
+    }
+  }
+
+  function createPlayer(player, number) {
     return {
+      name: player,
       balls: new Set(),
       score: 0,
       id: number,
@@ -36,9 +47,10 @@ function App() {
 
   function initAllPlayers(numberOfPlayers) {
     let tempArray = []
-    for (let i = 0; i <= numberOfPlayers; i++) {
-      tempArray.push(createPlayer(i))
+    for (let i = 1; i < numberOfPlayers; i++) {
+      tempArray.push(createPlayer("player" + i, i))
     }
+    tempArray.push(createPlayer("deadBalls", -1))
     return tempArray
   }
 
@@ -52,16 +64,6 @@ function App() {
     tempCurrentSet.delete(ballNumber)
     tempDestinationSet.add(ballNumber)
     return [tempCurrentSet, tempDestinationSet]
-  }
-
-  function resetBalls() {
-    const fullRack = new Set([...Array(9).keys()])
-    const emptyRack = new Set()
-    setInnings(0)
-    setPlayer1State({ balls: emptyRack, score: player1State.score, id: player1State.id })
-    setPlayer2State({ balls: emptyRack, score: player2State.score, id: player2State.id })
-    setDeadBallState({ balls: emptyRack, score: deadBallState.score, id: deadBallState.id })
-    setRackBalls(fullRack)
   }
 
   function sortRack(unsortedRack) {
@@ -78,61 +80,53 @@ function App() {
     return point
   }
 
-  function returnBallToRack([playerState, setPlayerState], ballNumber) {
-    let point = calulateBallPoints(ballNumber)
-    const [newPlayerBalls, newRackBalls] = moveBall(ballNumber, playerState.balls, rackBalls);
-    setPlayerState({ balls: newPlayerBalls, score: playerState.score - point, id: playerState.id });
-    sortRack(newRackBalls);
-  }
-
-  function createPlayerBlock([playerState, setPlayerState], styleName) {
-    return <>
+  function createPlayerBlock(player, styleName) {
+    return <React.Fragment key={styleName}>
       <div className={styleName}>
-        <button className={`${styleName}Button`} onClick={() => { setSelectedPlayerThenHandleInnings(playerState) }}>
+        <button className={`${styleName}Button`} onClick={() => { setSelectedPlayerThenHandleInnings(player.id) }}>
           {`${styleName}`}
         </button>
         {"   "}
-        {playerState.score}
-        <BallImageTable balls={playerState.balls} handleClick={(ballNumber) => {
-          returnBallToRack([playerState, setPlayerState], ballNumber)
+        {player.score}
+        <BallImageTable balls={player.balls} handleClick={(ballNumber) => {
+          returnBallToRack(player, ballNumber)
         }}
         />
       </div>
-    </>
+    </React.Fragment>
   }
 
-  function setSelectedPlayerThenHandleInnings(playerState) {
-    setSelectedPlayer(playerState.id);
-    if (playerState.id === 0) { changeCounter(1) }
+  function setSelectedPlayerThenHandleInnings(id) {
+    setSelectedPlayer(id);
+    console.log(id)
+    if (id === 1) { changeCounter(1) }
+  }
+
+  function setPage() {
+    let playerBlocks;
+    for (let player of playerArray) {
+      playerBlocks += <div>{createPlayerBlock(player, player.name)}</div>
+    }
+    return playerBlocks;
   }
 
   return <>
     <div className="background">
-
       <div className="innings">
         Innings
         <button className="counterButton" onClick={() => changeCounter(-1)}>-</button>
         {innings}
         <button className="counterButton" onClick={() => changeCounter(1)}>+</button>
       </div>
-
-      <div>{createPlayerBlock([player1State, setPlayer1State], "player1")}</div>
-      <div>{createPlayerBlock([player2State, setPlayer2State], "player2")}</div>
-      <div>{createPlayerBlock([deadBallState, setDeadBallState], "deadBalls")}</div>
-
+      <div >{playerArray.map((player) => createPlayerBlock(player, player.name))}</div>
       <div className="rackBalls">
         Balls on Table
         <BallImageTable balls={rackBalls} handleClick={(ballNumber) => {
-          let point = calulateBallPoints(ballNumber)
-          const [selectedState, setSelectedState] = selectedPlayer === 0 ? [player1State, setPlayer1State] : (selectedPlayer === 1 ? [player2State, setPlayer2State] : [deadBallState, setDeadBallState])
-          const [newRackBalls, newSelectedBalls] = moveBall(ballNumber, rackBalls, selectedState.balls);
-          sortRack(newRackBalls);
-          setSelectedState({ balls: newSelectedBalls, score: selectedState.score + point, id: selectedPlayer });
+          moveBallToPlayer(selectedPlayer, ballNumber)
         }}
         />
       </div>
-
-      <button style={{ width: 600, height: 100, background: '#8f8f8f', fontSize: 20 }} onClick={() => resetBalls()}>Next Rack</button>
+      <button style={{ width: 600, height: 100, background: '#8f8f8f', fontSize: 20 }} onClick={() => nextRack()}>Next Rack</button>
     </div>
   </>
 
