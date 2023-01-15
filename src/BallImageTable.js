@@ -4,10 +4,10 @@ export default function BallImageTable({ balls, handleClick }) {
 
 
     function makeBall(ballNumber) {
-        const path = "/public/img/" + (ballNumber + 1) + ".png"
+        const path = "img/" + (ballNumber + 1) + ".png"
         return (
             <div className="item" key={ballNumber} onClick={() => handleClick(ballNumber)}>
-                <img src={path} width="100" height="100" />
+                <img src={path} alt={ballNumber + 1} width="100" height="100" />
 
             </div>)
     }

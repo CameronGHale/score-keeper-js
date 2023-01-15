@@ -1,6 +1,5 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import BallImageTable from "./BallImageTable";
-import player from "./player";
 
 function App() {
   const [rackBalls, setRackBalls] = useState(new Set([...Array(9).keys()]))
@@ -40,6 +39,8 @@ function App() {
     setRackBalls(fullRack)
   }
 
+
+
   function sortRack(unsortedRack) {
     const tempRack = Array.from(unsortedRack).sort();
     const tempSet = new Set(tempRack)
@@ -47,6 +48,15 @@ function App() {
 
   }
 
+  function returnBallToRack([playerState, setPlayerState], ballNumber) {
+    let point = 1
+    if (ballNumber === 8) {
+      point = 2
+    }
+    const [newPlayerBalls, newRackBalls] = moveBall(ballNumber, playerState.balls, rackBalls);
+    setPlayerState({ balls: newPlayerBalls, score: playerState.score - point });
+    sortRack(newRackBalls);
+  }
 
 
   return <>
@@ -64,15 +74,9 @@ function App() {
         {player1State.score}
 
         <BallImageTable balls={player1State.balls} handleClick={(ballNumber) => {
-          let point = 1
-          if (ballNumber === 8) {
-            point = 2
-          }
-          const [newPlayer1Balls, newRackBalls] = moveBall(ballNumber, player1State.balls, rackBalls);
-          setPlayer1State({ balls: newPlayer1Balls, score: player1State.score - point });
-          sortRack(newRackBalls);
-        }}
-        />
+          returnBallToRack([player1State, setPlayer1State], ballNumber)
+        }
+        } />
       </div>
 
 
@@ -82,13 +86,7 @@ function App() {
         {player2State.score}
 
         <BallImageTable balls={player2State.balls} handleClick={(ballNumber) => {
-          let point = 1
-          if (ballNumber === 8) {
-            point = 2
-          }
-          const [newPlayer2Balls, newRackBalls] = moveBall(ballNumber, player2State.balls, rackBalls);
-          sortRack(newRackBalls);
-          setPlayer2State({ balls: newPlayer2Balls, score: player2State.score - point });
+          returnBallToRack([player2State, setPlayer2State], ballNumber)
         }}
         />
       </div>
@@ -99,13 +97,7 @@ function App() {
         {deadBallState.score}
 
         <BallImageTable balls={deadBallState.balls} handleClick={(ballNumber) => {
-          let point = 1
-          if (ballNumber === 8) {
-            point = 2
-          }
-          const [newDeadBallState, newRackBalls] = moveBall(ballNumber, deadBallState.balls, rackBalls);
-          sortRack(newRackBalls);
-          setDeadBallState({ balls: newDeadBallState, score: deadBallState.score - point })
+          returnBallToRack([deadBallState, setDeadBallState], ballNumber)
         }}
         />
       </div>
