@@ -40,7 +40,16 @@ code {
   width: 300px;
 }
 
-.player {
+.player1 {
+  border-radius: 4px;
+  color: #eee;
+  min-height: 200px;
+  min-width: 575px;
+  padding: 12px;
+  width: 300px;
+}
+
+.player2 {
   border-radius: 4px;
   color: #eee;
   min-height: 200px;
@@ -99,7 +108,7 @@ code {
   font-size: 20px;
 }
 
-.playerButton3 {
+.deadBallsButton {
   width: 200px;
   height: 60px;
   background-color: #acaca7;
