@@ -1,13 +1,12 @@
-import React, { useRef, useState } from 'react';
-
 export default function BallImageTable({ balls, handleClick }) {
 
 
     function makeBall(ballNumber) {
+        //for local testing add "/" before img
         const path = "img/" + (ballNumber + 1) + ".png"
         return (
             <div className="item" key={ballNumber} onClick={() => handleClick(ballNumber)}>
-                <img src={path} alt={ballNumber + 1} width="100" height="100" />
+                <img src={process.env.PUBLIC_URL + path} alt={ballNumber + 1} className="item" />
 
             </div>)
     }

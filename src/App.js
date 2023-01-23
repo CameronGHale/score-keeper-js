@@ -4,7 +4,7 @@ import BallImageTable from "./BallImageTable";
 function App() {
   const [rackBalls, setRackBalls] = useState(new Set([...Array(9).keys()]))
   const [innings, setInnings] = useState(0)
-  const [selectedPlayer, setSelectedPlayer] = useState(0)
+  const [selectedPlayer, setSelectedPlayer] = useState(1)
   const [playerArray, setPlayerArray] = useState(initAllPlayers(3))
 
   function nextRack() {
@@ -102,13 +102,6 @@ function App() {
     if (id === 1) { changeCounter(1) }
   }
 
-  function setPage() {
-    let playerBlocks;
-    for (let player of playerArray) {
-      playerBlocks += <div>{createPlayerBlock(player, player.name)}</div>
-    }
-    return playerBlocks;
-  }
 
   return <>
     <div className="background">
@@ -126,7 +119,7 @@ function App() {
         }}
         />
       </div>
-      <button style={{ width: 600, height: 100, background: '#8f8f8f', fontSize: 20 }} onClick={() => nextRack()}>Next Rack</button>
+      <button className="nextRackButton" onClick={() => nextRack()}>Next Rack</button>
     </div>
   </>
 

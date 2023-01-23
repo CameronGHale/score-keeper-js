@@ -1,4 +1,8 @@
 body {
+  width: 100vw;
+  height: 100vh;
+  align-items: flex-start;
+  position: relative;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -7,26 +11,39 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+@viewport {
+  width: device-width;
+  height: device-height;
+  zoom: 1.1;
+  min-zoom: 0.4;
+  max-zoom: 2;
+  user-zoom: fixed;
+}
+
+
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
 .flex-container {
+  max-width: 110vw;
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
-  padding: 20px;
-  max-width: 800px;
+  padding: 2px;
 }
 
 .item {
-  padding: 15px;
+  width: 20vw;
+  height: 20vw;
+  max-width: 200px;
+  max-height: 200px;
+  padding: 2px;
   border-width: 0px;
-  border-radius: 200%;
+  border-radius: 100%;
   border-style: solid;
-  width: 75px;
-  height: 75px;
   text-align: center;
 
 }
@@ -34,83 +51,85 @@ code {
 .innings {
   border-radius: 4px;
   color: #eee;
-  min-height: 50px;
-  min-width: 50px;
   padding: 12px;
-  width: 300px;
 }
 
 .player1 {
+  min-height: 10vh;
   border-radius: 4px;
   color: #eee;
-  min-height: 200px;
-  min-width: 575px;
   padding: 12px;
-  width: 300px;
 }
 
 .player2 {
+  min-height: 10vh;
   border-radius: 4px;
   color: #eee;
-  min-height: 200px;
-  min-width: 575px;
   padding: 12px;
-  width: 300px;
 }
 
 .deadBalls {
+  min-height: 10vh;
   border-radius: 4px;
   color: #eee;
-  min-height: 200px;
-  min-width: 575px;
   padding: 12px;
-  width: 300px;
+
 }
 
 .rackBalls {
+  height: 20vh;
   border-radius: 4px;
   color: #eee;
-  min-height: 200px;
-  min-width: 575px;
   padding: 12px;
-  width: 300px;
+
 }
 
 .background {
+  position: relative;
+  left: 0;
   background-color: #2d2d30;
-  border-radius: 4px;
   color: #eee;
-  min-height: 1500px;
-  min-width: 1500px;
-  padding: 12px;
-  width: 300px;
+  min-width: 100vw;
+  min-height: 100vh;
   font-size: 30px;
 }
 
 .counterButton {
-  width: 50px;
-  height: 50px;
+  position: relative;
+  width: 10vw;
+  height: 40px;
   background-color: #8f8f8f;
   font-size: 20px;
 }
 
 .player1Button {
-  width: 200px;
-  height: 60px;
+  width: 30vh;
+  min-height: 5vh;
   background-color: #214175;
   font-size: 20px;
 }
 
 .player2Button {
-  width: 200px;
-  height: 60px;
+  width: 30vh;
+  min-height: 5vh;
   background-color: #b7ae06;
   font-size: 20px;
 }
 
 .deadBallsButton {
-  width: 200px;
-  height: 60px;
+  width: 30vh;
+  min-height: 5vh;
   background-color: #acaca7;
+  font-size: 20px;
+}
+
+.nextRackButton {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 60vw;
+  height: 60px;
+  padding: 15px;
+  background: '#8f8f8f';
   font-size: 20px;
 }
