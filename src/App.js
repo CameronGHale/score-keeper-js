@@ -104,7 +104,7 @@ function App() {
 
 
   return <>
-    <div className="background">
+    <div>
       <div className="innings">
         Innings
         <button className="counterButton" onClick={() => changeCounter(-1)}>-</button>
