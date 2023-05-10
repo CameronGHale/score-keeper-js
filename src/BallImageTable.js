@@ -1,9 +1,10 @@
-export default function BallImageTable({ balls, handleClick }) {
+const IMAGE_PATH_PREFIX = (process.env.NODE_ENV !== 'production' ? process.env.PUBLIC_URL + '/' : '') + 'img/'
 
+export default function BallImageTable({ balls, handleClick }) {
 
     function makeBall(ballNumber) {
         //for local testing add "/" before img and change img src to img src={process.env.PUBLIC_URL + path}
-        const path = "img/" + (ballNumber + 1) + ".png"
+        const path = IMAGE_PATH_PREFIX + (ballNumber + 1) + ".png"
         return (
             <div className="item" key={ballNumber} onClick={() => handleClick(ballNumber)}>
                 <img src={path} alt={ballNumber + 1} className="item" />
