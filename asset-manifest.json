@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/score-keeper-js/static/css/main.069aec67.css",
-    "main.js": "/score-keeper-js/static/js/main.ae4b3c1c.js",
+    "main.js": "/score-keeper-js/static/js/main.225615cc.js",
     "static/js/787.8efa7fdb.chunk.js": "/score-keeper-js/static/js/787.8efa7fdb.chunk.js",
     "index.html": "/score-keeper-js/index.html",
     "main.069aec67.css.map": "/score-keeper-js/static/css/main.069aec67.css.map",
-    "main.ae4b3c1c.js.map": "/score-keeper-js/static/js/main.ae4b3c1c.js.map",
+    "main.225615cc.js.map": "/score-keeper-js/static/js/main.225615cc.js.map",
     "787.8efa7fdb.chunk.js.map": "/score-keeper-js/static/js/787.8efa7fdb.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.069aec67.css",
-    "static/js/main.ae4b3c1c.js"
+    "static/js/main.225615cc.js"
   ]
 }
